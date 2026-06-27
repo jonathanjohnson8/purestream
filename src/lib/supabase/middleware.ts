@@ -1,6 +1,9 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type CookieToSet = { name: string; value: string; options?: any };
+
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({ request });
 
@@ -12,7 +15,7 @@ export async function updateSession(request: NextRequest) {
         getAll() {
           return request.cookies.getAll();
         },
-        setAll(cookiesToSet) {
+        setAll(cookiesToSet: CookieToSet[]) {
           cookiesToSet.forEach(({ name, value }) =>
             request.cookies.set(name, value)
           );
