@@ -1,5 +1,4 @@
 import { redirect } from "next/navigation";
-import { Truck, DollarSign, User } from "lucide-react";
 import { BottomNav } from "@/components/BottomNav";
 import { getSessionUser } from "@/lib/auth";
 
@@ -11,9 +10,9 @@ export default async function ShopperLayout({ children }: { children: React.Reac
       <div className="flex-1">{children}</div>
       <BottomNav
         items={[
-          { href: "/shopper", label: "Jobs", icon: Truck },
-          { href: "/shopper/earnings", label: "Earnings", icon: DollarSign },
-          { href: "/shopper/account", label: "Account", icon: User },
+          { href: "/shopper", label: "Jobs", icon: "truck" },
+          { href: "/shopper/earnings", label: "Earnings", icon: "dollar" },
+          { href: "/shopper/account", label: "Account", icon: "user" },
         ]}
       />
     </div>

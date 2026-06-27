@@ -1,5 +1,4 @@
 import { redirect } from "next/navigation";
-import { Home, ShoppingCart, Package, User } from "lucide-react";
 import { BottomNav } from "@/components/BottomNav";
 import { CartProvider } from "@/components/cart/CartContext";
 import { CartFab } from "@/components/cart/CartFab";
@@ -20,10 +19,10 @@ export default async function CustomerLayout({
         <CartFab />
         <BottomNav
           items={[
-            { href: "/shop", label: "Shop", icon: Home },
-            { href: "/cart", label: "Cart", icon: ShoppingCart },
-            { href: "/orders", label: "Orders", icon: Package },
-            { href: "/account", label: "Account", icon: User },
+            { href: "/shop", label: "Shop", icon: "home" },
+            { href: "/cart", label: "Cart", icon: "cart" },
+            { href: "/orders", label: "Orders", icon: "package" },
+            { href: "/account", label: "Account", icon: "user" },
           ]}
         />
       </div>

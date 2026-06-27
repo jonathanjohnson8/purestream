@@ -2,12 +2,41 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import type { LucideIcon } from "lucide-react";
+import {
+  Home,
+  ShoppingCart,
+  Package,
+  User,
+  Truck,
+  DollarSign,
+  LayoutDashboard,
+  Boxes,
+  ClipboardList,
+  Route,
+} from "lucide-react";
+
+// Icon registry — layouts (Server Components) pass a string key, which is
+// serializable across the server→client boundary. The component itself is
+// resolved here on the client.
+const ICONS = {
+  home: Home,
+  cart: ShoppingCart,
+  package: Package,
+  user: User,
+  truck: Truck,
+  dollar: DollarSign,
+  dashboard: LayoutDashboard,
+  boxes: Boxes,
+  clipboard: ClipboardList,
+  route: Route,
+} as const;
+
+export type IconKey = keyof typeof ICONS;
 
 export interface NavItem {
   href: string;
   label: string;
-  icon: LucideIcon;
+  icon: IconKey;
 }
 
 export function BottomNav({ items }: { items: NavItem[] }) {
@@ -17,7 +46,7 @@ export function BottomNav({ items }: { items: NavItem[] }) {
       <ul className="flex">
         {items.map((it) => {
           const active = pathname === it.href || pathname.startsWith(it.href + "/");
-          const Icon = it.icon;
+          const Icon = ICONS[it.icon];
           return (
             <li key={it.href} className="flex-1">
               <Link
