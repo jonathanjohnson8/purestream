@@ -15,11 +15,11 @@ function SubmitBtn({ label }: { label: string }) {
   );
 }
 
-const DEMO = [
-  { role: "Customer", email: "customer@purestream.app" },
-  { role: "Shopper", email: "shopper@purestream.app" },
-  { role: "Vendor", email: "vendor@purestream.app" },
-  { role: "Admin", email: "admin@purestream.app" },
+const ROLE_STEPS = [
+  { role: "Customer", how: "Default after sign-up" },
+  { role: "Shopper", how: "Open /shopper → Activate" },
+  { role: "Vendor", how: "Open /vendor → Manage" },
+  { role: "Admin", how: "Open /admin → Enable" },
 ];
 
 export default function LoginPage() {
@@ -65,12 +65,16 @@ export default function LoginPage() {
       </button>
 
       <div className="mt-10 card p-4">
-        <p className="text-xs font-semibold text-ink-500 mb-2">DEMO ACCOUNTS (password: <code>purestream</code>)</p>
+        <p className="text-xs font-semibold text-ink-500 mb-1">HOW ROLES WORK</p>
+        <p className="text-xs text-ink-400 mb-3">
+          Sign up once with any email — you start as a customer. Switch on the other
+          roles in-app (also from Account → Switch workspace).
+        </p>
         <ul className="text-sm space-y-1">
-          {DEMO.map((d) => (
-            <li key={d.email} className="flex justify-between">
+          {ROLE_STEPS.map((d) => (
+            <li key={d.role} className="flex justify-between gap-3">
               <span className="text-ink-700">{d.role}</span>
-              <code className="text-ink-500">{d.email}</code>
+              <span className="text-ink-400 text-xs text-right">{d.how}</span>
             </li>
           ))}
         </ul>

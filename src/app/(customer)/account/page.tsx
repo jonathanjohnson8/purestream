@@ -1,4 +1,5 @@
-import { Droplets, Wallet, LogOut, Recycle } from "lucide-react";
+import Link from "next/link";
+import { Droplets, Wallet, LogOut, Recycle, Truck, Store, ShieldCheck, ChevronRight } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { getSessionUser } from "@/lib/auth";
 import { signOut } from "@/app/login/actions";
@@ -62,6 +63,34 @@ export default async function AccountPage() {
             </li>
           ))}
         </ul>
+      </section>
+
+      <section className="card p-4">
+        <h2 className="font-semibold text-ink-900 mb-1">Switch workspace</h2>
+        <p className="text-xs text-ink-400 mb-3">
+          Open another surface and activate it to add that role to your account.
+        </p>
+        <div className="divide-y divide-gray-50">
+          {[
+            { href: "/shopper", label: "Shopper / Driver", desc: "Pick up & deliver orders", icon: Truck },
+            { href: "/vendor", label: "Vendor dashboard", desc: "Manage catalog & orders", icon: Store },
+            { href: "/admin", label: "Admin / Ops", desc: "Dispatch & oversight", icon: ShieldCheck },
+          ].map((r) => {
+            const Icon = r.icon;
+            return (
+              <Link key={r.href} href={r.href} className="flex items-center gap-3 py-3">
+                <span className="grid place-items-center w-10 h-10 rounded-xl bg-brand-50 text-brand-600">
+                  <Icon size={20} />
+                </span>
+                <span className="flex-1">
+                  <span className="block text-sm font-medium text-ink-900">{r.label}</span>
+                  <span className="block text-xs text-ink-500">{r.desc}</span>
+                </span>
+                <ChevronRight size={18} className="text-ink-300" />
+              </Link>
+            );
+          })}
+        </div>
       </section>
 
       <form action={signOut}>
