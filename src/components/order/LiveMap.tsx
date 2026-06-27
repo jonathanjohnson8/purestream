@@ -42,7 +42,7 @@ export function LiveMap({ shopperId, initialShopper, destination, vendor }: Prop
     return (
       <div className="card overflow-hidden">
         <div className="h-44 bg-brand-50 grid place-items-center relative">
-          <div className="absolute inset-0 opacity-30" style={{ backgroundImage: "radial-gradient(circle at 30% 40%, #6ce9a6 0, transparent 40%), radial-gradient(circle at 70% 60%, #32d583 0, transparent 35%)" }} />
+          <div className="absolute inset-0 opacity-30" style={{ backgroundImage: "radial-gradient(circle at 30% 40%, #93c5fd 0, transparent 40%), radial-gradient(circle at 70% 60%, #60a5fa 0, transparent 35%)" }} />
           <div className="text-center z-10">
             <Navigation className="mx-auto text-brand-600 mb-1" size={28} />
             <p className="text-sm font-semibold text-brand-700">Live tracking</p>
@@ -69,7 +69,7 @@ export function LiveMap({ shopperId, initialShopper, destination, vendor }: Prop
           >
             {vendor && (
               <AdvancedMarker position={vendor}>
-                <Pin background="#039855" borderColor="#027a48" glyphColor="#fff" />
+                <Pin background="#2563eb" borderColor="#1d4ed8" glyphColor="#fff" />
               </AdvancedMarker>
             )}
             {destination && (
@@ -79,7 +79,7 @@ export function LiveMap({ shopperId, initialShopper, destination, vendor }: Prop
             )}
             {pos && (
               <AdvancedMarker position={pos}>
-                <Pin background="#12b76a" borderColor="#039855" glyphColor="#fff" />
+                <Pin background="#3b82f6" borderColor="#2563eb" glyphColor="#fff" />
               </AdvancedMarker>
             )}
           </Map>
