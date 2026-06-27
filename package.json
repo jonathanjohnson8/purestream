@@ -14,7 +14,7 @@
     "@vis.gl/react-google-maps": "^1.4.0",
     "clsx": "^2.1.1",
     "lucide-react": "^0.451.0",
-    "next": "15.1.6",
+    "next": "15.1.11",
     "react": "19.0.0",
     "react-dom": "19.0.0"
   },
