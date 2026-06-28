@@ -21,12 +21,10 @@ export async function getManagedVendors(): Promise<ManagedVendor[]> {
     .select("vendor_id, vendors(id,name,description,commission_rate)")
     .eq("user_id", me.id);
   // PostgREST returns a to-one embed as an object at runtime, but the query
-  // builder types it as an array — normalize either shape.
-  return (data ?? [])
-    .map((r: { vendors: ManagedVendor | ManagedVendor[] | null }) =>
-      Array.isArray(r.vendors) ? r.vendors[0] : r.vendors
-    )
-    .filter((v): v is ManagedVendor => Boolean(v));
+  // builder types it as an array — cast to any[] to normalize either shape.
+  return ((data ?? []) as any[])
+    .map((r) => (Array.isArray(r.vendors) ? r.vendors[0] : r.vendors))
+    .filter((v: unknown): v is ManagedVendor => Boolean(v));
 }
 
 /** The active vendor = the one selected in the cookie, else the first managed one. */
