@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { getCurrentVendor, getManagedVendors } from "@/lib/vendorContext";
 import { VendorSwitcher } from "@/components/vendor/VendorSwitcher";
 import { VendorOrderActions } from "@/components/vendor/VendorOrderActions";
+import { WorkspaceSwitcher } from "@/components/WorkspaceSwitcher";
 import { signOut } from "@/app/login/actions";
 import { money } from "@/lib/format";
 
@@ -44,6 +45,7 @@ export default async function VendorDashboard() {
         <h1 className="text-2xl font-bold text-ink-900">Vendor dashboard</h1>
         <p className="text-ink-500 -mt-2">Claim a vendor to manage its catalog and orders.</p>
         {switcher}
+        <WorkspaceSwitcher current="/vendor" />
         <SignOutButton />
       </main>
     );
@@ -113,6 +115,7 @@ export default async function VendorDashboard() {
       </Link>
 
       {switcher}
+      <WorkspaceSwitcher current="/vendor" />
       <SignOutButton />
     </main>
   );

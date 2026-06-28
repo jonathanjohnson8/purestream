@@ -2,6 +2,7 @@ import { ShieldCheck, DollarSign, ShoppingBag, Store, Truck, Activity, LogOut } 
 import { createClient } from "@/lib/supabase/server";
 import { getSessionUser } from "@/lib/auth";
 import { ClaimAdmin } from "@/components/admin/AdminButtons";
+import { WorkspaceSwitcher } from "@/components/WorkspaceSwitcher";
 import { signOut } from "@/app/login/actions";
 import { money } from "@/lib/format";
 
@@ -32,6 +33,7 @@ export default async function AdminOverview() {
           </span>
           <ClaimAdmin />
         </div>
+        <WorkspaceSwitcher current="/admin" />
         <SignOutButton />
       </main>
     );
@@ -78,6 +80,7 @@ export default async function AdminOverview() {
         </ul>
       </section>
 
+      <WorkspaceSwitcher current="/admin" />
       <SignOutButton />
     </main>
   );

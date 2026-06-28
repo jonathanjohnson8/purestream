@@ -1,6 +1,7 @@
 import { LogOut, Truck } from "lucide-react";
 import { getSessionUser } from "@/lib/auth";
 import { signOut } from "@/app/login/actions";
+import { WorkspaceSwitcher } from "@/components/WorkspaceSwitcher";
 import { initials } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
@@ -18,6 +19,8 @@ export default async function ShopperAccount() {
           <p className="text-sm text-ink-500 flex items-center gap-1"><Truck size={13} /> PureStream driver</p>
         </div>
       </div>
+      <WorkspaceSwitcher current="/shopper" />
+
       <form action={signOut}>
         <button className="btn w-full bg-white border border-gray-200 text-ink-700 py-3">
           <LogOut size={18} /> Sign out
