@@ -1,8 +1,9 @@
 import { ClipboardList } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
-import { getCurrentVendor } from "@/lib/vendorContext";
+import { getCurrentVendor, getManagedVendors } from "@/lib/vendorContext";
 import { StatusBadge } from "@/components/StatusBadge";
 import { VendorOrderActions } from "@/components/vendor/VendorOrderActions";
+import { VendorChip } from "@/components/vendor/VendorChip";
 import { money, shortDate } from "@/lib/format";
 import type { OrderStatus } from "@/lib/types";
 
@@ -14,6 +15,7 @@ export default async function VendorOrders() {
     return <main className="px-5 pt-12"><p className="text-ink-500">Link a vendor first (Dashboard tab).</p></main>;
   }
   const supabase = await createClient();
+  const managed = await getManagedVendors();
   const { data: orders } = await supabase
     .from("orders")
     .select("id,order_number,status,total,created_at")
@@ -22,9 +24,12 @@ export default async function VendorOrders() {
 
   return (
     <main className="px-5 pt-12 pb-28 space-y-4">
-      <h1 className="text-2xl font-bold text-ink-900 flex items-center gap-2">
-        <ClipboardList size={22} className="text-brand-600" /> Orders
-      </h1>
+      <div className="flex items-center justify-between gap-3">
+        <h1 className="text-2xl font-bold text-ink-900 flex items-center gap-2">
+          <ClipboardList size={22} className="text-brand-600" /> Orders
+        </h1>
+        <VendorChip vendors={managed.map((m) => ({ id: m.id, name: m.name }))} currentId={vendor.id} />
+      </div>
       {(!orders || orders.length === 0) && <p className="text-sm text-ink-400">No orders yet.</p>}
       <div className="space-y-3">
         {(orders ?? []).map((o: any) => (

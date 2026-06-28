@@ -1,7 +1,8 @@
 import { Boxes } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
-import { getCurrentVendor } from "@/lib/vendorContext";
+import { getCurrentVendor, getManagedVendors } from "@/lib/vendorContext";
 import { ProductRow } from "@/components/vendor/ProductRow";
+import { VendorChip } from "@/components/vendor/VendorChip";
 
 export const dynamic = "force-dynamic";
 
@@ -12,6 +13,7 @@ export default async function VendorProducts() {
   }
 
   const supabase = await createClient();
+  const managed = await getManagedVendors();
   const { data: products } = await supabase
     .from("products")
     .select("id,name,price,category")
@@ -30,9 +32,12 @@ export default async function VendorProducts() {
 
   return (
     <main className="px-5 pt-12 pb-28 space-y-4">
-      <h1 className="text-2xl font-bold text-ink-900 flex items-center gap-2">
-        <Boxes size={22} className="text-brand-600" /> Catalog
-      </h1>
+      <div className="flex items-center justify-between gap-3">
+        <h1 className="text-2xl font-bold text-ink-900 flex items-center gap-2">
+          <Boxes size={22} className="text-brand-600" /> Catalog
+        </h1>
+        <VendorChip vendors={managed.map((m) => ({ id: m.id, name: m.name }))} currentId={vendor.id} />
+      </div>
       <p className="text-sm text-ink-500 -mt-2">Tap a price to edit. Toggle availability for stockouts.</p>
       <div className="space-y-3">
         {(products ?? []).map((p: any) => (

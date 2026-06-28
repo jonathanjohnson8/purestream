@@ -1,10 +1,21 @@
 import Link from "next/link";
-import { Store, DollarSign, ClipboardList, AlertTriangle, Inbox } from "lucide-react";
+import { Store, DollarSign, ClipboardList, AlertTriangle, Inbox, LogOut } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { getCurrentVendor, getManagedVendors } from "@/lib/vendorContext";
 import { VendorSwitcher } from "@/components/vendor/VendorSwitcher";
 import { VendorOrderActions } from "@/components/vendor/VendorOrderActions";
+import { signOut } from "@/app/login/actions";
 import { money } from "@/lib/format";
+
+function SignOutButton() {
+  return (
+    <form action={signOut}>
+      <button className="btn w-full bg-white border border-gray-200 text-ink-700 py-3">
+        <LogOut size={18} /> Sign out
+      </button>
+    </form>
+  );
+}
 
 export const dynamic = "force-dynamic";
 
@@ -33,6 +44,7 @@ export default async function VendorDashboard() {
         <h1 className="text-2xl font-bold text-ink-900">Vendor dashboard</h1>
         <p className="text-ink-500 -mt-2">Claim a vendor to manage its catalog and orders.</p>
         {switcher}
+        <SignOutButton />
       </main>
     );
   }
@@ -101,6 +113,7 @@ export default async function VendorDashboard() {
       </Link>
 
       {switcher}
+      <SignOutButton />
     </main>
   );
 }

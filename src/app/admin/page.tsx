@@ -1,8 +1,19 @@
-import { ShieldCheck, DollarSign, ShoppingBag, Store, Truck, Activity } from "lucide-react";
+import { ShieldCheck, DollarSign, ShoppingBag, Store, Truck, Activity, LogOut } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { getSessionUser } from "@/lib/auth";
 import { ClaimAdmin } from "@/components/admin/AdminButtons";
+import { signOut } from "@/app/login/actions";
 import { money } from "@/lib/format";
+
+function SignOutButton() {
+  return (
+    <form action={signOut}>
+      <button className="btn w-full bg-white border border-gray-200 text-ink-700 py-3">
+        <LogOut size={18} /> Sign out
+      </button>
+    </form>
+  );
+}
 
 export const dynamic = "force-dynamic";
 
@@ -21,6 +32,7 @@ export default async function AdminOverview() {
           </span>
           <ClaimAdmin />
         </div>
+        <SignOutButton />
       </main>
     );
   }
@@ -65,6 +77,8 @@ export default async function AdminOverview() {
           {(events ?? []).length === 0 && <li className="text-sm text-ink-400">No activity yet.</li>}
         </ul>
       </section>
+
+      <SignOutButton />
     </main>
   );
 }
