@@ -20,8 +20,12 @@ export async function getManagedVendors(): Promise<ManagedVendor[]> {
     .from("vendor_users")
     .select("vendor_id, vendors(id,name,description,commission_rate)")
     .eq("user_id", me.id);
+  // PostgREST returns a to-one embed as an object at runtime, but the query
+  // builder types it as an array — normalize either shape.
   return (data ?? [])
-    .map((r: { vendors: ManagedVendor | null }) => r.vendors)
+    .map((r: { vendors: ManagedVendor | ManagedVendor[] | null }) =>
+      Array.isArray(r.vendors) ? r.vendors[0] : r.vendors
+    )
     .filter((v): v is ManagedVendor => Boolean(v));
 }
 
