@@ -38,10 +38,14 @@ export async function acceptJob(orderId: string) {
 
   const { data: order } = await supabase
     .from("orders")
-    .select("id, vendor_location_id, delivery_address_id, vendor_locations(address_id)")
+    .select("id, status, vendor_location_id, delivery_address_id, vendor_locations(address_id)")
     .eq("id", orderId)
     .single();
   if (!order) return { error: "Order not found" };
+  // Only confirmed-but-unassigned jobs can be accepted (prevents double-assignment).
+  if (order.status !== "vendor_confirmed") {
+    return { error: "This job is no longer available" };
+  }
 
   const { data: route } = await supabase
     .from("routes")

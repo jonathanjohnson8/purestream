@@ -56,7 +56,7 @@ export default async function AdminOverview() {
         <ShieldCheck size={22} className="text-brand-600" /> Operations
       </h1>
 
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
         <Metric icon={DollarSign} label="GMV" value={money(gmv)} />
         <Metric icon={DollarSign} label="Service revenue" value={money(serviceRev)} tone="brand" />
         <Metric icon={ShoppingBag} label="Orders" value={String((orders ?? []).length)} />

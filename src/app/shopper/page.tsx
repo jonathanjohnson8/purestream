@@ -77,7 +77,7 @@ export default async function ShopperJobs() {
         {(!activeOrders || activeOrders.length === 0) && (
           <p className="text-sm text-ink-400">No active jobs. Accept one below.</p>
         )}
-        <div className="space-y-3">
+        <div className="grid gap-3 sm:grid-cols-2">
           {(activeOrders ?? []).map((o: any) => (
             <Link key={o.id} href={`/shopper/orders/${o.id}`} className="card block p-4 hover:shadow-float transition">
               <div className="flex justify-between items-center">
@@ -95,7 +95,7 @@ export default async function ShopperJobs() {
           <Zap size={18} className="text-amber-500" /> Available jobs
         </h2>
         {available.length === 0 && <p className="text-sm text-ink-400">No available jobs right now.</p>}
-        <div className="space-y-3">
+        <div className="grid gap-3 sm:grid-cols-2">
           {available.map((o: any) => (
             <div key={o.id} className="card p-4">
               <div className="flex justify-between items-center">

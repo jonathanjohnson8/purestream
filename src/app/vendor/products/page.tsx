@@ -39,7 +39,7 @@ export default async function VendorProducts() {
         <VendorChip vendors={managed.map((m) => ({ id: m.id, name: m.name }))} currentId={vendor.id} />
       </div>
       <p className="text-sm text-ink-500 -mt-2">Tap a price to edit. Toggle availability for stockouts.</p>
-      <div className="space-y-3">
+      <div className="grid gap-3 sm:grid-cols-2">
         {(products ?? []).map((p: any) => (
           <ProductRow key={p.id} id={p.id} name={p.name} price={Number(p.price)} status={statusMap.get(p.id) ?? "available"} />
         ))}

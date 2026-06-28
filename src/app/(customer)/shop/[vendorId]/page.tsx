@@ -58,7 +58,7 @@ export default async function VendorCatalog({
         {categories.map((cat) => (
           <section key={cat}>
             <h2 className="font-semibold text-ink-900 mb-3">{cat}</h2>
-            <div className="space-y-3">
+            <div className="grid gap-3 sm:grid-cols-2">
               {(products ?? [])
                 .filter((p: { category: string | null }) => (p.category ?? "Other") === cat)
                 .map((p: any) => {

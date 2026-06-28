@@ -84,7 +84,7 @@ export default async function VendorDashboard() {
         <p className="text-sm text-ink-500">Commission {(vendor.commission_rate * 100).toFixed(0)}%</p>
       </header>
 
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <Metric icon={DollarSign} label="Sales (gross)" value={money(todaySales)} />
         <Metric icon={ClipboardList} label="Orders" value={String((orders ?? []).length)} />
         <Metric icon={DollarSign} label="Pending payout" value={money(pendingPayout)} tone="brand" />
@@ -96,7 +96,7 @@ export default async function VendorDashboard() {
           <Inbox size={18} className="text-brand-600" /> Orders awaiting confirmation
         </h2>
         {pendingOrders.length === 0 && <p className="text-sm text-ink-400">Nothing waiting. You're all caught up.</p>}
-        <div className="space-y-3">
+        <div className="grid gap-3 sm:grid-cols-2">
           {pendingOrders.map((o: any) => (
             <div key={o.id} className="card p-4">
               <div className="flex justify-between">

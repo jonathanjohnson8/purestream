@@ -26,7 +26,7 @@ export default async function OrdersPage() {
           <Link href="/shop" className="btn-primary mt-6">Start an order</Link>
         </div>
       )}
-      <div className="space-y-3">
+      <div className="grid gap-3 sm:grid-cols-2">
         {(orders ?? []).map((o: any) => (
           <Link key={o.id} href={`/orders/${o.id}`} className="card block p-4 hover:shadow-float transition">
             <div className="flex items-center justify-between">

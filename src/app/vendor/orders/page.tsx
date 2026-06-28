@@ -31,7 +31,7 @@ export default async function VendorOrders() {
         <VendorChip vendors={managed.map((m) => ({ id: m.id, name: m.name }))} currentId={vendor.id} />
       </div>
       {(!orders || orders.length === 0) && <p className="text-sm text-ink-400">No orders yet.</p>}
-      <div className="space-y-3">
+      <div className="grid gap-3 sm:grid-cols-2">
         {(orders ?? []).map((o: any) => (
           <div key={o.id} className="card p-4">
             <div className="flex justify-between items-center">

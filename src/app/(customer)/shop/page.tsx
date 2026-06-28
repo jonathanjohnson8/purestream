@@ -38,7 +38,7 @@ export default async function ShopPage() {
 
       <section className="px-5 mt-5">
         <h2 className="font-semibold text-ink-900 mb-3">Water vendors near you</h2>
-        <div className="space-y-3">
+        <div className="grid gap-3 sm:grid-cols-2">
           {(vendors ?? []).map((v: { id: string; name: string; description: string | null }) => (
             <Link key={v.id} href={`/shop/${v.id}`} className="card block p-4 hover:shadow-float transition">
               <div className="flex items-start gap-3">
