@@ -1,31 +1,41 @@
 import Link from "next/link";
 import { Store, DollarSign, ClipboardList, AlertTriangle, Inbox } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
-import { getCurrentVendor } from "@/lib/vendorContext";
-import { VendorActivate } from "@/components/vendor/VendorActivate";
+import { getCurrentVendor, getManagedVendors } from "@/lib/vendorContext";
+import { VendorSwitcher } from "@/components/vendor/VendorSwitcher";
 import { VendorOrderActions } from "@/components/vendor/VendorOrderActions";
 import { money } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
 
 export default async function VendorDashboard() {
+  const supabase = await createClient();
   const vendor = await getCurrentVendor();
+  const managed = await getManagedVendors();
+
+  const { data: allVendors } = await supabase
+    .from("vendors")
+    .select("id,name")
+    .eq("status", "active")
+    .order("name");
+
+  const switcher = (
+    <VendorSwitcher
+      vendors={(allVendors as { id: string; name: string }[]) ?? []}
+      managedIds={managed.map((m) => m.id)}
+      currentId={vendor?.id ?? null}
+    />
+  );
+
   if (!vendor) {
     return (
-      <main className="px-5 pt-12 pb-28">
-        <h1 className="text-2xl font-bold text-ink-900 mb-2">Vendor dashboard</h1>
-        <p className="text-ink-500 mb-6">Link your account to a vendor to manage catalog and orders.</p>
-        <div className="card p-6 text-center">
-          <span className="grid place-items-center w-16 h-16 rounded-full bg-brand-50 text-brand-600 mx-auto mb-3">
-            <Store size={30} />
-          </span>
-          <VendorActivate />
-        </div>
+      <main className="px-5 pt-12 pb-28 space-y-4">
+        <h1 className="text-2xl font-bold text-ink-900">Vendor dashboard</h1>
+        <p className="text-ink-500 -mt-2">Claim a vendor to manage its catalog and orders.</p>
+        {switcher}
       </main>
     );
   }
-
-  const supabase = await createClient();
 
   const { data: orders } = await supabase
     .from("orders")
@@ -89,6 +99,8 @@ export default async function VendorDashboard() {
       <Link href="/vendor/orders" className="btn w-full bg-white border border-gray-200 text-ink-700 py-3">
         View all orders
       </Link>
+
+      {switcher}
     </main>
   );
 }
